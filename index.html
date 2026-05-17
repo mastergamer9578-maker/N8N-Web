@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="globe icon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>N8N PRO — AI Automation Specialist</title>
@@ -57,7 +56,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 4rem;
-    background: rgba(10,10,12,0.85);
+    background: rgba(10,10,12,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(201,168,76,0.12);
   }
@@ -86,6 +85,52 @@
     transition: color 0.3s;
   }
   .nav-links a:hover { color: var(--gold); }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+    z-index: 110;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--gold);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10,10,12,0.98);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
 
   /* ── HERO ── */
   .hero {
@@ -142,7 +187,7 @@
 
   .hero-title {
     font-family: var(--serif);
-    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-size: clamp(3rem, 8vw, 7rem);
     font-weight: 300;
     line-height: 1.05;
     letter-spacing: -0.01em;
@@ -157,7 +202,7 @@
 
   .hero-subtitle {
     font-family: var(--serif);
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-size: clamp(1rem, 3vw, 1.8rem);
     font-weight: 300;
     font-style: italic;
     color: var(--cream-dim);
@@ -377,7 +422,6 @@
     text-transform: uppercase;
     padding: 0.25rem 0.75rem;
     border: 1px solid rgba(201,168,76,0.2);
-    color: var(--gold-dark);
     color: #C9A84C;
   }
 
@@ -437,7 +481,7 @@
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
   }
 
@@ -509,7 +553,7 @@
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
   }
 
@@ -644,6 +688,7 @@
     transition: border-color 0.3s;
     -webkit-appearance: none;
     letter-spacing: 0.04em;
+    width: 100%;
   }
   .form-input::placeholder, .form-textarea::placeholder { color: var(--cream-faint); opacity: 0.6; }
   .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: rgba(201,168,76,0.5); }
@@ -667,6 +712,8 @@
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     align-self: center;
+    width: 100%;
+    max-width: 260px;
   }
   .form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
 
@@ -699,6 +746,7 @@
     display: flex;
     gap: 2rem;
     list-style: none;
+    flex-wrap: wrap;
   }
 
   .footer-links a {
@@ -737,12 +785,141 @@
     transform: translateY(0);
   }
 
-  @media (max-width: 768px) {
-    nav { padding: 1.2rem 1.5rem; }
-    .nav-links { display: none; }
-    .form-row { grid-template-columns: 1fr; }
-    footer { flex-direction: column; text-align: center; }
+  /* ═══════════════════════════════════════
+     RESPONSIVE — TABLET (≤ 1024px)
+  ════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    nav { padding: 1.3rem 2.5rem; }
+
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonials-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .process-steps {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
     .process-steps::before { display: none; }
+
+    .stats-inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stat-item:nth-child(2)::after { display: none; }
+
+    footer { padding: 2.5rem 2rem; }
+  }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE — MOBILE (≤ 768px)
+  ════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    /* Nav */
+    nav { padding: 1.1rem 1.4rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    /* Hero */
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-glow { width: 300px; height: 300px; }
+    .hero-eyebrow::before, .hero-eyebrow::after { width: 20px; }
+    .hero-cta-group { flex-direction: column; align-items: center; gap: 1rem; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+
+    /* Sections */
+    section { padding: 4.5rem 1.5rem; }
+
+    /* Stats */
+    .stats-bar { padding: 2rem 1.5rem; }
+    .stats-inner {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .stat-item::after { display: none; }
+    .stat-num { font-size: 2.2rem; }
+
+    /* Services */
+    .services-grid {
+      grid-template-columns: 1fr;
+      background: transparent;
+      border: none;
+      gap: 1rem;
+    }
+    .service-card {
+      border: 1px solid rgba(201,168,76,0.1);
+      padding: 2rem 1.5rem;
+    }
+
+    /* Process */
+    .process-steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .process-steps::before { display: none; }
+
+    /* Projects */
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    .project-card { padding: 2rem 1.5rem; }
+
+    /* Testimonials */
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Tools */
+    .tool-pill { padding: 0.5rem 1rem; font-size: 0.6rem; }
+
+    /* Form */
+    .form-row { grid-template-columns: 1fr; }
+    .form-submit { max-width: 100%; }
+    .contact-inner { padding: 0 0.5rem; }
+
+    /* Footer */
+    footer {
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      gap: 1.2rem;
+    }
+    .footer-links {
+      justify-content: center;
+      gap: 1.2rem;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE — SMALL MOBILE (≤ 480px)
+  ════════════════════════════════════════ */
+  @media (max-width: 480px) {
+    .hero-eyebrow { font-size: 0.55rem; letter-spacing: 0.2em; }
+    .hero-desc { font-size: 0.72rem; }
+
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .stat-num { font-size: 2rem; }
+    .stat-label { font-size: 0.55rem; letter-spacing: 0.15em; }
+
+    .section-intro { margin-bottom: 3rem; font-size: 0.75rem; }
+
+    .service-card { padding: 1.5rem 1.2rem; }
+    .service-num { font-size: 3rem; }
+
+    .project-title { font-size: 1.3rem; }
+    .testimonial-text { font-size: 0.92rem; }
+
+    footer { padding: 1.8rem 1rem; }
+    .footer-links { flex-direction: column; gap: 0.8rem; }
+
+    .tools-grid { gap: 0.7rem; }
+    .tool-pill { padding: 0.45rem 0.9rem; }
   }
 </style>
 </head>
@@ -758,7 +935,19 @@
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="#services" class="mobile-link">Services</a></li>
+  <li><a href="#work" class="mobile-link">Work</a></li>
+  <li><a href="#process" class="mobile-link">Process</a></li>
+  <li><a href="#testimonials" class="mobile-link">Testimonials</a></li>
+  <li><a href="#contact" class="mobile-link">Contact</a></li>
+</ul>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -1098,10 +1287,10 @@
     <li><a href="mailto:mastergamer9578@gmail.com">Mail</a></li>
     <li><a href="https://www.instagram.com/motasim._.9559?utm_source=qr">Instagram</a></li>
     <li><a href="https://www.youtube.com/@MASTERGAMER-5XT">YouTube</a></li>
-
   </ul>
   <span class="footer-copy">© 2026 N8N PRO · All rights reserved</span>
 </footer>
+<span class="footer-copy" style="display:block;text-align:center;padding:0.5rem 0 1.5rem;background:var(--obsidian);font-size:0.6rem;letter-spacing:0.12em;color:var(--cream-faint);">Created By Muhammad Motasim</span>
 
 <script>
   // Scroll reveal
@@ -1133,22 +1322,22 @@
     btn.style.color = '#a8d48a';
     btn.disabled = true;
   }
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
 </script>
-
-<div class="testimonial-author">
-        <div class="author-avatar">MM</div>
-        <div>
-          <p class="author-name">Muhammad Motasim</p>
-          <p class="author-role">CEO · N8N PRO · Pakistan,KARACHI</p>
-        </div>
-      </div>
-    </div>
-
-<span class="footer-copy">Created By Muhammad Motasim</span>
-
 </body>
 </html>
-
-
-
-
