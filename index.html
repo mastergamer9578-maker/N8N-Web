@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
 
   :root {
     --gold: #C9A84C;
@@ -47,10 +47,12 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 100000;
+    top: 0; left: 0;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 8px rgba(201,168,76,0.9), 0 0 20px rgba(201,168,76,0.4);
     transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-    will-change: left, top;
+    will-change: transform;
+    opacity: 0;
   }
 
   body.cursor-hover #cursor-main {
@@ -65,14 +67,11 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
-    transform: translate(-50%, -50%);
-    will-change: left, top, opacity, width, height;
+    top: 0; left: 0;
+    will-change: transform, opacity, width, height;
   }
 
-  /* Ensure all interactive elements keep cursor hidden */
-  a, button, input, select, textarea, label, [role="button"] {
-    cursor: none !important;
-  }
+  /* Custom cursor replaces all native cursors — covered by universal selector above */
 
   /* ── NOISE TEXTURE OVERLAY ── */
   body::before {
@@ -1410,8 +1409,8 @@
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    cursorMain.style.left = mouseX + 'px';
-    cursorMain.style.top  = mouseY + 'px';
+    cursorMain.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+    cursorMain.style.opacity = '1';
 
     // Spawn particles every 2nd move event
     spawnThrottle++;
@@ -1436,8 +1435,7 @@
       const size     = p.size * progress;
       const alpha    = progress * 0.85;
 
-      p.el.style.left       = p.x + 'px';
-      p.el.style.top        = p.y + 'px';
+      p.el.style.transform   = `translate(calc(${p.x}px - 50%), calc(${p.y}px - 50%))`;
       p.el.style.width      = size + 'px';
       p.el.style.height     = size + 'px';
       p.el.style.opacity    = alpha;
