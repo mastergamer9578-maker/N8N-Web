@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <link rel="icon" type="image/png" href="logo.png">
+<link rel="icon" type="image/png" href="globe icon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>N8N PRO — AI Automation Specialist</title>
@@ -74,6 +75,113 @@
     cursor: none !important;
   }
 
+
+  /* ── AUTH MODAL ── */
+  .auth-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,12,0.88);
+    backdrop-filter: blur(10px);
+    z-index: 99000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .auth-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .auth-modal {
+    background: var(--obsidian-3);
+    border: 1px solid rgba(201,168,76,0.18);
+    width: 100%;
+    max-width: 420px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.35s ease;
+    box-shadow: 0 0 60px rgba(0,0,0,0.6);
+  }
+  .auth-overlay.active .auth-modal { transform: translateY(0); }
+  .auth-modal-close {
+    position: absolute; top: 1.1rem; right: 1.3rem;
+    background: none; border: none; color: var(--cream-faint);
+    font-size: 1.4rem; line-height: 1; cursor: none; transition: color 0.2s;
+  }
+  .auth-modal-close:hover { color: var(--gold); }
+  .auth-modal-eyebrow {
+    font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .auth-modal-eyebrow::before, .auth-modal-eyebrow::after {
+    content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.25);
+  }
+  .auth-modal-title {
+    font-family: var(--serif); font-size: 2rem; font-weight: 300;
+    color: var(--cream); text-align: center; margin-bottom: 2rem;
+  }
+  .auth-modal-title em { font-style: italic; color: var(--gold); }
+  .auth-field { margin-bottom: 1.2rem; }
+  .auth-label {
+    display: block; font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--cream-faint); margin-bottom: 0.45rem;
+  }
+  .auth-input-wrap { position: relative; }
+  .auth-input {
+    width: 100%; background: var(--obsidian-4);
+    border: 1px solid rgba(201,168,76,0.15); color: var(--cream);
+    font-family: var(--sans); font-size: 0.78rem; font-weight: 300;
+    padding: 0.75rem 2.5rem 0.75rem 1rem; outline: none; transition: border-color 0.25s; cursor: none;
+  }
+  .auth-input:focus { border-color: rgba(201,168,76,0.55); }
+  .auth-input.error { border-color: rgba(220,80,80,0.6); }
+  .auth-input::placeholder { color: var(--cream-faint); }
+  .auth-eye {
+    position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--cream-faint); cursor: none;
+    font-size: 0.85rem; transition: color 0.2s; padding: 0; line-height: 1;
+  }
+  .auth-eye:hover { color: var(--gold); }
+  .auth-error-msg {
+    font-size: 0.6rem; color: #e05555; letter-spacing: 0.08em;
+    margin-top: 0.35rem; display: none;
+  }
+  .auth-error-msg.show { display: block; }
+  .auth-submit {
+    width: 100%; margin-top: 1.6rem; padding: 0.85rem;
+    background: var(--gold); color: var(--obsidian); font-family: var(--sans);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em;
+    text-transform: uppercase; border: none; cursor: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .auth-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .auth-submit:disabled { background: var(--obsidian-5); color: var(--cream-faint); transform: none; }
+  .auth-switch { text-align: center; margin-top: 1.4rem; font-size: 0.65rem; letter-spacing: 0.08em; color: var(--cream-faint); }
+  .auth-switch a { color: var(--gold); text-decoration: none; cursor: none; transition: color 0.2s; }
+  .auth-switch a:hover { color: var(--gold-light); }
+  .auth-success { text-align: center; padding: 1rem 0; display: none; }
+  .auth-success-icon { font-size: 2.8rem; margin-bottom: 0.8rem; }
+  .auth-success-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--gold); margin-bottom: 0.5rem; }
+  .auth-success-msg { font-size: 0.72rem; color: var(--cream-faint); letter-spacing: 0.06em; line-height: 1.8; }
+  .nav-user-pill { display: none; align-items: center; gap: 0.6rem; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--cream-dim); }
+  .nav-user-pill.visible { display: flex; }
+  .nav-user-avatar {
+    width: 28px; height: 28px; background: var(--gold); color: var(--obsidian);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0;
+  }
+  .nav-logout-btn {
+    font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--cream-faint); background: none; border: none; cursor: none;
+    transition: color 0.2s; padding: 0;
+  }
+  .nav-logout-btn:hover { color: var(--gold); }
+  @media (max-width: 480px) { .auth-modal { padding: 2.2rem 1.4rem; max-width: 95vw; } }
+
   /* ── NOISE TEXTURE OVERLAY ── */
   body::before {
     content: '';
@@ -138,10 +246,64 @@
     border-color: var(--gold) !important;
   }
 
+  /* ── NAV AUTH BUTTONS ── */
+  .nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-left: 1rem;
+  }
+
+  .nav-login-btn {
+    display: inline-block;
+    padding: 0.42rem 1rem !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase;
+    color: var(--cream-dim) !important;
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.15);
+    transition: color 0.3s, border-color 0.3s !important;
+  }
+  .nav-login-btn:hover {
+    color: var(--cream) !important;
+    border-color: rgba(245,240,232,0.4) !important;
+  }
+
+  .nav-signup-btn {
+    display: inline-block;
+    padding: 0.42rem 1.1rem !important;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: var(--gold);
+    color: var(--obsidian) !important;
+    transition: background 0.3s, transform 0.2s !important;
+  }
+  .nav-signup-btn:hover {
+    background: var(--gold-light) !important;
+    transform: translateY(-1px);
+  }
+
   .mobile-about-btn {
     border: 1px solid rgba(201,168,76,0.4);
     padding: 0.5rem 1.5rem;
     color: var(--gold) !important;
+  }
+
+  .mobile-login-btn {
+    border: 1px solid rgba(245,240,232,0.2);
+    padding: 0.5rem 1.5rem;
+    color: var(--cream-dim) !important;
+  }
+
+  .mobile-signup-btn {
+    background: var(--gold);
+    padding: 0.55rem 2rem;
+    color: var(--obsidian) !important;
+    font-weight: 600;
   }
 
   /* ── HAMBURGER ── */
@@ -882,6 +1044,7 @@
     /* Nav */
     nav { padding: 1.1rem 1.4rem; }
     .nav-links { display: none; }
+    .nav-auth { display: none; }
     .hamburger { display: flex; }
 
     /* Hero */
@@ -997,6 +1160,15 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://muhammad-motasim-personal-web.vercel.app/" target="_blank" rel="noopener noreferrer" class="nav-about-btn">About Me</a></li>
   </ul>
+  <div class="nav-auth" id="navAuth">
+    <a href="#" class="nav-login-btn" id="openLogin">Log In</a>
+    <a href="#" class="nav-signup-btn" id="openSignup">Sign Up</a>
+  </div>
+  <div class="nav-user-pill" id="navUserPill">
+    <div class="nav-user-avatar" id="navAvatar"></div>
+    <span id="navUserName"></span>
+    <button class="nav-logout-btn" id="navLogout">Log out</button>
+  </div>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
@@ -1010,6 +1182,8 @@
   <li><a href="#testimonials" class="mobile-link">Testimonials</a></li>
   <li><a href="#contact" class="mobile-link">Contact</a></li>
   <li><a href="https://muhammad-motasim-personal-web.vercel.app/" target="_blank" rel="noopener noreferrer" class="mobile-link mobile-about-btn">About Me</a></li>
+  <li><a href="#" class="mobile-link mobile-login-btn">Log In</a></li>
+  <li><a href="#" class="mobile-link mobile-signup-btn">Sign Up</a></li>
 </ul>
 
 <!-- HERO -->
@@ -1355,6 +1529,86 @@
 </footer>
 <span class="footer-copy" style="display:block;text-align:center;padding:0.5rem 0 1.5rem;background:var(--obsidian);font-size:0.6rem;letter-spacing:0.12em;color:var(--cream-faint);">Created By Muhammad Motasim</span>
 
+<!-- ── AUTH MODAL ── -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal" id="authModal">
+    <button class="auth-modal-close" id="authClose" aria-label="Close">&#x2715;</button>
+
+    <!-- LOGIN PANEL -->
+    <div id="loginPanel">
+      <div class="auth-modal-eyebrow">Welcome Back</div>
+      <h2 class="auth-modal-title">Sign <em>In</em></h2>
+      <div class="auth-field">
+        <label class="auth-label">Email Address</label>
+        <div class="auth-input-wrap">
+          <input type="email" class="auth-input" id="loginEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <p class="auth-error-msg" id="loginEmailErr">Please enter a valid email.</p>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Password</label>
+        <div class="auth-input-wrap">
+          <input type="password" class="auth-input" id="loginPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="current-password">
+          <button class="auth-eye" type="button" data-target="loginPassword" aria-label="Toggle">&#128065;</button>
+        </div>
+        <p class="auth-error-msg" id="loginPassErr">Password must be at least 6 characters.</p>
+        <p class="auth-error-msg" id="loginCredsErr">Incorrect email or password.</p>
+      </div>
+      <button class="auth-submit" id="loginSubmit">Sign In &rarr;</button>
+      <div class="auth-success" id="loginSuccess">
+        <div class="auth-success-icon">&#10022;</div>
+        <p class="auth-success-title">Welcome back</p>
+        <p class="auth-success-msg" id="loginSuccessName"></p>
+      </div>
+      <p class="auth-switch">No account? <a href="#" id="switchToSignup">Create one &rarr;</a></p>
+    </div>
+
+    <!-- SIGNUP PANEL -->
+    <div id="signupPanel" style="display:none">
+      <div class="auth-modal-eyebrow">New Here</div>
+      <h2 class="auth-modal-title">Create <em>Account</em></h2>
+      <div class="auth-field">
+        <label class="auth-label">Full Name</label>
+        <div class="auth-input-wrap">
+          <input type="text" class="auth-input" id="signupName" placeholder="Your full name" autocomplete="name">
+        </div>
+        <p class="auth-error-msg" id="signupNameErr">Please enter your name.</p>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Email Address</label>
+        <div class="auth-input-wrap">
+          <input type="email" class="auth-input" id="signupEmail" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <p class="auth-error-msg" id="signupEmailErr">Please enter a valid email.</p>
+        <p class="auth-error-msg" id="signupDupErr">An account with this email already exists.</p>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Password</label>
+        <div class="auth-input-wrap">
+          <input type="password" class="auth-input" id="signupPassword" placeholder="Min. 6 characters" autocomplete="new-password">
+          <button class="auth-eye" type="button" data-target="signupPassword" aria-label="Toggle">&#128065;</button>
+        </div>
+        <p class="auth-error-msg" id="signupPassErr">Password must be at least 6 characters.</p>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Confirm Password</label>
+        <div class="auth-input-wrap">
+          <input type="password" class="auth-input" id="signupConfirm" placeholder="Repeat password" autocomplete="new-password">
+          <button class="auth-eye" type="button" data-target="signupConfirm" aria-label="Toggle">&#128065;</button>
+        </div>
+        <p class="auth-error-msg" id="signupConfirmErr">Passwords do not match.</p>
+      </div>
+      <button class="auth-submit" id="signupSubmit">Create Account &rarr;</button>
+      <div class="auth-success" id="signupSuccess">
+        <div class="auth-success-icon">&#10022;</div>
+        <p class="auth-success-title">Account created</p>
+        <p class="auth-success-msg" id="signupSuccessName"></p>
+      </div>
+      <p class="auth-switch">Already have an account? <a href="#" id="switchToLogin">Sign in &rarr;</a></p>
+    </div>
+  </div>
+</div>
+
 <script>
   // ── CUSTOM CURSOR — PARTICLE TRAIL ──
   const cursorMain = document.getElementById('cursor-main');
@@ -1495,6 +1749,167 @@
     btn.style.color = '#a8d48a';
     btn.disabled = true;
   }
+
+
+  // ── AUTH SYSTEM ──
+  const overlay    = document.getElementById('authOverlay');
+  const authClose  = document.getElementById('authClose');
+  const loginPanel = document.getElementById('loginPanel');
+  const signupPanel= document.getElementById('signupPanel');
+  const openLogin  = document.getElementById('openLogin');
+  const openSignup = document.getElementById('openSignup');
+  const switchToSignup = document.getElementById('switchToSignup');
+  const switchToLogin  = document.getElementById('switchToLogin');
+  const navAuth    = document.getElementById('navAuth');
+  const navUserPill= document.getElementById('navUserPill');
+  const navAvatar  = document.getElementById('navAvatar');
+  const navUserName= document.getElementById('navUserName');
+  const navLogout  = document.getElementById('navLogout');
+
+  // Simple in-memory user store (resets on page refresh — no localStorage)
+  const users = {};
+  let currentUser = null;
+
+  function openModal(panel) {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    clearErrors();
+    if (panel === 'login') {
+      loginPanel.style.display = '';
+      signupPanel.style.display = 'none';
+      document.getElementById('loginSuccess').style.display = 'none';
+      document.getElementById('loginSubmit').style.display = '';
+    } else {
+      loginPanel.style.display = 'none';
+      signupPanel.style.display = '';
+      document.getElementById('signupSuccess').style.display = 'none';
+      document.getElementById('signupSubmit').style.display = '';
+    }
+  }
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.auth-error-msg').forEach(e => e.classList.remove('show'));
+    document.querySelectorAll('.auth-input').forEach(i => i.classList.remove('error'));
+  }
+
+  function showErr(id, inputId) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('show');
+    if (inputId) {
+      const inp = document.getElementById(inputId);
+      if (inp) inp.classList.add('error');
+    }
+  }
+
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+
+  // Open buttons
+  openLogin.addEventListener('click', e => { e.preventDefault(); openModal('login'); });
+  openSignup.addEventListener('click', e => { e.preventDefault(); openModal('signup'); });
+
+  // Mobile menu buttons
+  const mobileLoginBtn  = document.querySelector('.mobile-login-btn');
+  const mobileSignupBtn = document.querySelector('.mobile-signup-btn');
+  if (mobileLoginBtn)  mobileLoginBtn.addEventListener('click',  e => { e.preventDefault(); closeHamburger(); openModal('login'); });
+  if (mobileSignupBtn) mobileSignupBtn.addEventListener('click', e => { e.preventDefault(); closeHamburger(); openModal('signup'); });
+
+  function closeHamburger() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Switch panels
+  switchToSignup.addEventListener('click', e => { e.preventDefault(); openModal('signup'); });
+  switchToLogin.addEventListener('click',  e => { e.preventDefault(); openModal('login'); });
+
+  // Close
+  authClose.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Password toggle eyes
+  document.querySelectorAll('.auth-eye').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const inp = document.getElementById(btn.dataset.target);
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      btn.textContent = inp.type === 'password' ? '\u{1F441}' : '\u{1F648}';
+    });
+  });
+
+  // ── LOGIN ──
+  document.getElementById('loginSubmit').addEventListener('click', () => {
+    clearErrors();
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass  = document.getElementById('loginPassword').value;
+    let valid = true;
+
+    if (!isValidEmail(email)) { showErr('loginEmailErr', 'loginEmail'); valid = false; }
+    if (pass.length < 6)      { showErr('loginPassErr', 'loginPassword'); valid = false; }
+    if (!valid) return;
+
+    const user = users[email.toLowerCase()];
+    if (!user || user.password !== pass) {
+      showErr('loginCredsErr'); return;
+    }
+
+    // Success
+    currentUser = user;
+    document.getElementById('loginSuccess').style.display = 'block';
+    document.getElementById('loginSuccessName').textContent = 'Signed in as ' + user.name;
+    document.getElementById('loginSubmit').style.display = 'none';
+    setTimeout(() => {
+      closeModal();
+      updateNavForUser(user);
+    }, 1600);
+  });
+
+  // ── SIGNUP ──
+  document.getElementById('signupSubmit').addEventListener('click', () => {
+    clearErrors();
+    const name    = document.getElementById('signupName').value.trim();
+    const email   = document.getElementById('signupEmail').value.trim();
+    const pass    = document.getElementById('signupPassword').value;
+    const confirm = document.getElementById('signupConfirm').value;
+    let valid = true;
+
+    if (!name)                              { showErr('signupNameErr',    'signupName');     valid = false; }
+    if (!isValidEmail(email))               { showErr('signupEmailErr',   'signupEmail');    valid = false; }
+    if (pass.length < 6)                    { showErr('signupPassErr',    'signupPassword'); valid = false; }
+    if (pass !== confirm || !confirm)       { showErr('signupConfirmErr', 'signupConfirm');  valid = false; }
+    if (!valid) return;
+
+    if (users[email.toLowerCase()]) { showErr('signupDupErr', 'signupEmail'); return; }
+
+    // Save user
+    users[email.toLowerCase()] = { name, email: email.toLowerCase(), password: pass };
+    currentUser = users[email.toLowerCase()];
+
+    document.getElementById('signupSuccess').style.display = 'block';
+    document.getElementById('signupSuccessName').textContent = 'Welcome, ' + name + '! You can now sign in.';
+    document.getElementById('signupSubmit').style.display = 'none';
+    setTimeout(() => {
+      closeModal();
+      updateNavForUser(currentUser);
+    }, 1800);
+  });
+
+  function updateNavForUser(user) {
+    navAuth.style.display = 'none';
+    navUserPill.classList.add('visible');
+    navAvatar.textContent = user.name.charAt(0).toUpperCase();
+    navUserName.textContent = user.name.split(' ')[0];
+  }
+
+  navLogout.addEventListener('click', () => {
+    currentUser = null;
+    navAuth.style.display = '';
+    navUserPill.classList.remove('visible');
+  });
 
   // Hamburger menu
   const hamburger = document.getElementById('hamburger');
