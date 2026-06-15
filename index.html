@@ -61,7 +61,7 @@
             margin: 0 auto;
             padding: 2rem 1.5rem;
             position: relative;
-            z-index: 2; 
+ z-index: 2; 
         }
 
         section {
@@ -110,6 +110,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.2rem 1.5rem;
+            position: relative;
         }
 
         .logo {
@@ -117,6 +118,7 @@
             font-size: 1.3rem;
             color: #ffffff;
             text-decoration: none;
+            z-index: 1001; /* Keep above dropdown overlay */
         }
 
         .logo span {
@@ -142,6 +144,39 @@
 
         .nav-links a:hover {
             opacity: 1;
+        }
+
+        /* NEW: Mobile Hamburger Button Styling */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 1001; /* Keep above dropdown overlay */
+            padding: 5px;
+        }
+
+        .mobile-menu-btn .bar {
+            width: 25px;
+            height: 2.5px;
+            background-color: var(--text-color);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* NEW: Hamburger Transform Animations to "X" when open */
+        .mobile-menu-btn.open .bar:nth-child(1) {
+            transform: translateY(8.5px) rotate(45deg);
+            background: #38bdf8;
+        }
+        .mobile-menu-btn.open .bar:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-btn.open .bar:nth-child(3) {
+            transform: translateY(-8.5px) rotate(-45deg);
+            background: #38bdf8;
         }
 
         /* --- HERO SECTION --- */
@@ -396,6 +431,21 @@
             box-shadow: 0 5px 20px rgba(129, 140, 248, 0.4);
         }
 
+        /* Style for the Tip Message container */
+        .tip-box {
+            grid-column: span 2;
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid #38bdf8;
+            border-radius: 8px;
+            color: #38bdf8;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+        }
+
         .direct-email {
             display: block;
             margin-top: 2rem;
@@ -417,17 +467,58 @@
             opacity: 0.5;
         }
 
-        /* --- RESPONSIVE BREAKPOINTS --- */
+        /* --- RESPONSIVE BREAKPOINTS (UPDATED FOR TABLET & MOBILE INTERACTIVE MENU) --- */
         @media (max-width: 900px) {
             :root { --max-width: 720px; }
             .hero h1 { font-size: 3rem; }
             .contact-container { padding: 2.5rem; }
+
+            /* Show Hamburger icon on tablets and mobile screens */
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            /* Turn nav-links into a responsive glassmorphism sliding layout overlay */
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(6, 9, 19, 0.95);
+                border-bottom: 1px solid var(--border-color);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                text-align: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .nav-links.active {
+                max-height: 300px; /* Expands smoothly when button is active */
+            }
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1.2rem;
+                font-size: 1.05rem;
+                width: 100%;
+            }
         }
 
         @media (max-width: 768px) {
             body { padding-top: 70px; }
             .nav-container { padding: 1rem 1.2rem; }
-            .nav-links { display: none; }
             .hero { padding: 4rem 0 2rem 0; text-align: center; }
             .hero h1 { font-size: 2.4rem; }
             .badge-container { grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 2.5rem; }
@@ -440,6 +531,7 @@
             .project-form { grid-template-columns: 1fr; gap: 1rem; }
             .form-group.full-width { grid-column: span 1; }
             .form-submit-btn { grid-column: span 1; padding: 0.9rem; }
+            .tip-box { grid-column: span 1; }
             .contact-container { padding: 2rem 1.2rem; border-radius: 16px; }
         }
 
@@ -457,10 +549,17 @@
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">Motasim<span>.UI/UX</span></a>
-            <ul class="nav-links">
-                <li><a href="#process">The Process</a></li>
-                <li><a href="#alignment">Compatibility</a></li>
-                <li><a href="#start">Start Project</a></li>
+            
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#process" onclick="closeMobileMenu()">The Process</a></li>
+                <li><a href="#alignment" onclick="closeMobileMenu()">Compatibility</a></li>
+                <li><a href="#start" onclick="closeMobileMenu()">Start Project</a></li>
             </ul>
         </div>
     </nav>
@@ -531,7 +630,7 @@
                 <h2>Start Your UI/UX Project</h2>
                 <p>Fill out this preliminary scope parameters form, and I will parse your project requirements to respond with a strategic timeline framework within 24 hours.</p>
                 
-                <form class="project-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <form class="project-form" onsubmit="showTipMessage(event)">
                     <div class="form-group">
                         <label for="name">Your Name / Company</label>
                         <input type="text" id="name" name="name" placeholder="e.g., Alex from TechCorp" required>
@@ -565,6 +664,10 @@
                     </div>
                     
                     <button type="submit" class="form-submit-btn">Submit Design Brief Request &rarr;</button>
+
+                    <div id="tip-message" class="tip-box" style="display: none;">
+                        Tip: Mail To muhammadmotasim9669@gmail.com
+                    </div>
                 </form>
 
                 <a href="mailto:muhammadmotasim9669@gmail.com" class="direct-email">Prefer direct messaging? Reach out at muhammadmotasim9669@gmail.com</a>
@@ -580,6 +683,26 @@
     <script>
         // Set dynamic copyright year
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // NEW: Mobile Navigation Logic Functionality
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.getElementById('navLinks');
+
+        function toggleMobileMenu() {
+            menuBtn.classList.toggle('open');
+            navLinks.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            menuBtn.classList.remove('open');
+            navLinks.classList.remove('active');
+        }
+
+        // Function to handle form submit, block external jumps, and show the message
+        function showTipMessage(event) {
+            event.preventDefault(); 
+            document.getElementById('tip-message').style.display = 'block'; 
+        }
 
         // --- PREVENT BROWSER FORM RESUBMISSION POPUPS ON RELOAD ---
         if (window.history.replaceState) {
