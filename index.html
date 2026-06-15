@@ -190,7 +190,7 @@
             color: #38bdf8;
         }
 
-        /* Hamburger Button CSS */
+        /* Mobile Hamburger Toggle */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -267,7 +267,7 @@
             box-shadow: 0 12px 35px rgba(129, 140, 248, 0.6);
         }
 
-        /* --- METAVERSE BADGES --- */
+        /* --- PERSONAL IDENTITY BADGES --- */
         .badge-container {
             display: flex;
             flex-wrap: wrap;
@@ -308,7 +308,69 @@
         .badge.student:hover { border-color: var(--student-color); box-shadow: 0 0 20px rgba(244, 114, 182, 0.2); }
         .badge.pak:hover { border-color: var(--pak-color); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
 
-        /* --- COLLABORATION WORKFLOW (PROCESS GRID) --- */
+        /* --- INFINITE TICKER MARQUEE (ADDED FROM IMAGE) --- */
+        .ticker-wrap {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            background: rgba(6, 9, 19, 0.6);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 0;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            margin-top: 4.5rem;
+            margin-bottom: -2rem;
+        }
+
+        .ticker {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        .ticker-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 3.5rem;
+            padding-right: 3.5rem;
+        }
+
+        .ticker-item {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .ticker-item span.bolt {
+            background: var(--primary-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.1rem;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* Pause ticker animation when user hovers over it */
+        .ticker-wrap:hover .ticker {
+            animation-play-state: paused;
+        }
+
+        /* --- PROCESS LAYOUT GRID --- */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -409,7 +471,7 @@
             font-weight: bold;
         }
 
-        /* --- DYNAMIC COLLABORATION FORM WITH FLOATING LABELS --- */
+        /* --- PREMIUM CONTACT FORM SYSTEM --- */
         .contact-container {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -443,7 +505,7 @@
             grid-column: span 2;
         }
 
-        /* Custom Animated Label Structure */
+        /* Custom Floating Label Magic */
         .form-group label {
             position: absolute;
             left: 1.2rem;
@@ -488,7 +550,6 @@
             padding-right: 2.5rem;
         }
 
-        /* Activation styling parameters */
         .form-group input:focus, 
         .form-group select:focus, 
         .form-group textarea:focus {
@@ -497,7 +558,7 @@
             box-shadow: 0 0 15px rgba(129, 140, 248, 0.25);
         }
 
-        /* Custom Dynamic CSS State Rules to Support Floating Transform Chains */
+        /* Detect text presence or activation to trigger float transformation rules */
         .form-group input:focus ~ label,
         .form-group input:not(:placeholder-shown) ~ label,
         .form-group select:focus ~ label,
@@ -536,7 +597,7 @@
             box-shadow: 0 6px 30px rgba(129, 140, 248, 0.5);
         }
 
-        /* Form submission dynamic layout boxes */
+        /* Dynamic Feedback Output Boxes */
         .status-box {
             grid-column: span 2;
             margin-top: 1rem;
@@ -571,6 +632,11 @@
         
         .direct-email:hover { opacity: 1; color: #38bdf8; }
 
+        /* --- TIMELINE ADJUSTMENT FOR THE MARQUEE --- */
+        #process {
+            padding-top: 8.5rem;
+        }
+
         /* --- FOOTER --- */
         footer {
             text-align: center;
@@ -579,7 +645,7 @@
             opacity: 0.5;
         }
 
-        /* --- RESPONSIVE BREAKPOINTS --- */
+        /* --- STABLE RESPONSIVE LAYOUT BREAKPOINTS --- */
         @media (max-width: 900px) {
             :root { --max-width: 720px; }
             .hero h1 { font-size: 3.4rem; }
@@ -648,6 +714,8 @@
             .form-submit-btn { grid-column: span 1; padding: 1.1rem; }
             .status-box { grid-column: span 1; }
             .contact-container { padding: 3rem 1.5rem; border-radius: 22px; }
+            .ticker-wrap { margin-top: 3.5rem; }
+            #process { padding-top: 6rem; }
         }
 
         @media (max-width: 480px) {
@@ -660,6 +728,7 @@
 </head>
 <body>
 
+    <!-- Target mounting node for the WebGL scene background engine -->
     <div id="canvas3d"></div>
 
     <nav>
@@ -707,6 +776,26 @@
                 <div class="badge pak">
                     <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                     <span>UI/UX Designer</span>
+                </div>
+            </div>
+
+            <!-- --- INFINITE TICKER MARQUEE BANNERS (ADDED) --- -->
+            <div class="ticker-wrap">
+                <div class="ticker">
+                    <!-- Original Group -->
+                    <div class="ticker-group">
+                        <div class="ticker-item">Figma UI/UX <span class="bolt">&#9889;</span></div>
+                        <div class="ticker-item">High-Fidelity Wireframes <span class="bolt">&#9889;</span></div>
+                        <div class="ticker-item">Interactive Prototyping <span class="bolt">&#9889;</span></div>
+                        <div class="ticker-item">Design System Architecture <span class="bolt">&#9889;</span></div>
+                    </div>
+                    <!-- Duplicate Group for Seamless Looping -->
+                    <div class="ticker-group" aria-hidden="true">
+                        <div class="ticker-item">Figma UI/UX <span class="bolt">&#9889;</span></div>
+                        <div class="ticker-item">High-Fidelity Wireframes <span class="bolt">&#9889;</span></div>
+                        <div class="ticker-item">Interactive Prototyping <span class="bolt">&#9889;</span></div>
+                        <div class="ticker-item">Design System Architecture <span class="bolt">&#9889;</span></div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -759,8 +848,9 @@
         <section id="start">
             <div class="contact-container" style="text-align: center;">
                 <h2>Start Your UI/UX Project</h2>
-                <p>Fill out this preliminary scope parameters form, and I will parse your project requirements to respond with a strategic timeline framework within 24 hours.</p>
+                <p>Fill out this preliminary scope parameters form, and I will review your project requirements to respond with a strategic timeline framework within 24 hours.</p>
                 
+                <!-- Production Link Configuration: Swap placeholder text below with actual dashboard tokens -->
                 <form id="designForm" class="project-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" onsubmit="handleFormSubmit(event)">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder=" " required autocomplete="name">
@@ -822,7 +912,7 @@
             navLinks.classList.toggle('active');
         }
 
-        // Native Select Tracking to Support Labels
+        // Native Select Attribute Tracking to Support CSS Floating Label Target Selectors
         document.querySelectorAll('select').forEach(sel => {
             if(sel.value !== "") {
                 sel.removeAttribute('data-empty');
@@ -834,14 +924,14 @@
             navLinks.classList.remove('active');
         }
 
-        // Upgraded Native Async Asynchronous Form Validation & Processor Handlers[cite: 1]
+        // Upgraded Native Async Asynchronous Form Validation & Processor Handlers
         async function handleFormSubmit(event) {
             event.preventDefault();
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
             const statusBox = document.getElementById('form-status');
             
-            // Double validation layer to intercept any empty submissions[cite: 1]
+            // Comprehensive runtime interception validation layers
             const nameField = document.getElementById('name').value.trim();
             const emailField = document.getElementById('email').value.trim();
             const descField = document.getElementById('description').value.trim();
@@ -854,10 +944,12 @@
                 return;
             }
 
+            // Lock interface to isolate transmission requests
             submitBtn.disabled = true;
             submitBtn.textContent = "Processing Brief Parameters...";
             statusBox.style.display = "none";
 
+            // Intercept placeholder tokens safely during testing phases
             if (form.getAttribute('action').includes('YOUR_FORMSPREE_ID')) {
                 setTimeout(() => {
                     submitBtn.disabled = false;
@@ -880,6 +972,7 @@
                     statusBox.className = "status-box success";
                     statusBox.innerHTML = "🚀 Strategy Brief Transmitted! I will review and follow up within 24 hours.";
                     form.reset();
+                    // Restore clean floating state defaults to standard dropdown inputs
                     document.querySelectorAll('select').forEach(sel => sel.setAttribute('data-empty', 'true'));
                 } else {
                     throw new Error();
@@ -894,11 +987,12 @@
             }
         }
 
+        // Prevent layout processing jumps during rapid history actions
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
         }
 
-        // Section Display Reveal Animations
+        // Section Intersection Observer Transition Triggers
         const sections = document.querySelectorAll('section');
         const observerOptions = { threshold: 0.1, rootMargin: "-10% 0px -30% 0px" };
         
@@ -910,9 +1004,11 @@
             });
         }, observerOptions);
         sections.forEach(sec => scrollObserver.observe(sec));
+        
+        // Instant display safety triggers for top folds
         setTimeout(() => { if(sections[0]) sections[0].classList.add('reveal'); }, 150);
 
-        // Header Navigation Link Active Tracker
+        // Navigation Highlight Tracker
         const navItems = document.querySelectorAll('.nav-links a');
         const navObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -930,13 +1026,14 @@
         sections.forEach(sec => navObserver.observe(sec));
 
 
-        // --- ATMOSPHERIC PARTICLES SYSTEM ---
+        // --- PERFORMANCE-TUNED ATMOSPHERIC PARTICLES BACKGROUND ---
         const container = document.getElementById('canvas3d');
         const scene = new THREE.Scene();
         
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 50;
 
+        // Capping pixel calculations to 2 to prevent GPU overheat flags on high-density arrays
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: window.devicePixelRatio < 2 });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -967,6 +1064,7 @@
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
+        // Programmatic texture mapping script to optimize external requests
         const canvasMat = document.createElement('canvas');
         canvasMat.width = 16;
         canvasMat.height = 16;
@@ -997,7 +1095,7 @@
             targetY = (e.clientY / window.innerHeight - 0.5) * 14;
         });
 
-        // Interactive depth tracking calculation logic parameters
+        // Dynamic depth reactive velocity tracker
         let scrollSpeedTarget = 0;
         window.addEventListener('scroll', () => {
             scrollSpeedTarget = window.scrollY * 0.015;
@@ -1008,10 +1106,11 @@
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            // Dynamic depth reactive velocity tracker
+            // Passive spatial rotation calculations
             starField.rotation.y = elapsedTime * 0.012 + (scrollSpeedTarget * 0.005);
             starField.rotation.x = elapsedTime * 0.006;
 
+            // Fluid deceleration tracking
             starField.position.x += (targetX - starField.position.x) * 0.05;
             starField.position.y += (-targetY - starField.position.y) * 0.05;
 
@@ -1036,6 +1135,7 @@
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
                     
+                    // Cap spatial calculation limit angles
                     const rotateX = (-y / rect.height) * 15; 
                     const rotateY = (x / rect.width) * 15;
 
