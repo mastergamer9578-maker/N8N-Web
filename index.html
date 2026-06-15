@@ -16,7 +16,7 @@
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
             --primary-glow: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
-            --card-bg: rgba(11, 15, 26, 0.75);
+            --card-bg: rgba(11, 15, 26, 0.78);
             --border-color: rgba(255, 255, 255, 0.08);
             --border-focus: #818cf8;
             --max-width: 950px;
@@ -83,7 +83,7 @@
         }
 
         section {
-            padding: 6rem 0;
+            padding: 6.5rem 0;
             border-bottom: 1px solid var(--border-color);
             opacity: 0;
             transform: translateY(40px);
@@ -269,10 +269,11 @@
 
         /* --- METAVERSE BADGES --- */
         .badge-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             margin-top: 4.5rem;
+            width: 100%;
         }
 
         .badge {
@@ -287,12 +288,15 @@
             gap: 0.75rem;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            flex: 1 1 calc(20% - 1rem);
+            min-width: 170px;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .badge svg {
             width: 20px;
             height: 20px;
+            flex-shrink: 0;
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -439,11 +443,11 @@
             grid-column: span 2;
         }
 
-        /* Custom Animated Label Logic Structure */
+        /* Custom Animated Label Structure */
         .form-group label {
             position: absolute;
             left: 1.2rem;
-            top: 1rem;
+            top: 1.1rem;
             font-size: 0.95rem;
             font-weight: 500;
             color: var(--text-muted);
@@ -451,6 +455,7 @@
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             background: transparent;
             padding: 0 0.25rem;
+            z-index: 5;
         }
 
         .form-group input, 
@@ -467,6 +472,8 @@
             appearance: none;
             -webkit-appearance: none;
             width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .form-group textarea {
@@ -481,7 +488,7 @@
             padding-right: 2.5rem;
         }
 
-        /* Activation handles for custom form styling */
+        /* Activation styling parameters */
         .form-group input:focus, 
         .form-group select:focus, 
         .form-group textarea:focus {
@@ -490,11 +497,11 @@
             box-shadow: 0 0 15px rgba(129, 140, 248, 0.25);
         }
 
-        /* Handle floating label transitions when focused or populated */
+        /* Custom Dynamic CSS State Rules to Support Floating Transform Chains */
         .form-group input:focus ~ label,
         .form-group input:not(:placeholder-shown) ~ label,
         .form-group select:focus ~ label,
-        .form-group select:valid ~ label,
+        .form-group select:not([data-empty="true"]) ~ label,
         .form-group textarea:focus ~ label,
         .form-group textarea:not(:placeholder-shown) ~ label {
             top: -0.75rem;
@@ -504,9 +511,10 @@
             color: #38bdf8;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            background: #090e1a;
+            background: #060913;
             padding: 0 0.5rem;
             border-radius: 4px;
+            z-index: 10;
         }
 
         .form-submit-btn {
@@ -528,7 +536,7 @@
             box-shadow: 0 6px 30px rgba(129, 140, 248, 0.5);
         }
 
-        /* System notification styling boxes */
+        /* Form submission dynamic layout boxes */
         .status-box {
             grid-column: span 2;
             margin-top: 1rem;
@@ -575,6 +583,8 @@
         @media (max-width: 900px) {
             :root { --max-width: 720px; }
             .hero h1 { font-size: 3.4rem; }
+            .badge-container { gap: 0.75rem; }
+            .badge { flex: 1 1 calc(33.33% - 0.75rem); }
             .contact-container { padding: 3rem 2.5rem; }
 
             .mobile-menu-btn {
@@ -625,7 +635,8 @@
             .nav-container { padding: 1rem 1.2rem; }
             .hero { padding: 4rem 0 2rem 0; text-align: center; }
             .hero h1 { font-size: 2.6rem; }
-            .badge-container { grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 2.5rem; }
+            .badge-container { gap: 0.5rem; margin-top: 2.5rem; }
+            .badge { flex: 1 1 calc(50% - 0.5rem); min-width: 140px; padding: 1rem; }
             section { padding: 4rem 0; }
             h2 { font-size: 1.7rem; margin-bottom: 2rem; }
             .skills-grid { grid-template-columns: 1fr; gap: 1.4rem; }
@@ -641,7 +652,8 @@
 
         @media (max-width: 480px) {
             .hero h1 { font-size: 2.2rem; }
-            .badge-container { grid-template-columns: 1fr; }
+            .badge-container { flex-direction: column; }
+            .badge { flex: 1 1 100%; }
             .btn { width: 100%; }
         }
     </style>
@@ -751,15 +763,15 @@
                 
                 <form id="designForm" class="project-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" onsubmit="handleFormSubmit(event)">
                     <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder=" " required>
+                        <input type="text" id="name" name="name" placeholder=" " required autocomplete="name">
                         <label for="name">Your Name / Company</label>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder=" " required>
+                        <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
                         <label for="email">Work Email</label>
                     </div>
                     <div class="form-group">
-                        <select id="project-type" name="project-type" required>
+                        <select id="project-type" name="project-type" data-empty="true" onchange="this.removeAttribute('data-empty')" required>
                             <option value="" disabled selected hidden></option>
                             <option value="saas-dashboard">Web App / SaaS Dashboard</option>
                             <option value="landing-page">High-Conversion Landing Page</option>
@@ -769,7 +781,7 @@
                         <label for="project-type">Project Scope</label>
                     </div>
                     <div class="form-group">
-                        <select id="timeline" name="timeline" required>
+                        <select id="timeline" name="timeline" data-empty="true" onchange="this.removeAttribute('data-empty')" required>
                             <option value="" disabled selected hidden></option>
                             <option value="express">Urgent (1-2 Weeks)</option>
                             <option value="standard">Standard (3-4 Weeks)</option>
@@ -801,7 +813,7 @@
         // Set dynamic copyright year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Mobile Navigation Logic Functionality
+        // Mobile Navigation Menu Toggles
         const menuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.getElementById('navLinks');
 
@@ -810,19 +822,34 @@
             navLinks.classList.toggle('active');
         }
 
+        // Native Select Tracking to Support Labels
+        document.querySelectorAll('select').forEach(sel => {
+            if(sel.value !== "") {
+                sel.removeAttribute('data-empty');
+            }
+        });
+
         function closeMobileMenu() {
             menuBtn.classList.remove('open');
             navLinks.classList.remove('active');
         }
 
-        // Upgraded Native Async Asynchronous Form Validation & Processor Handlers
+        // Upgraded Native Async Asynchronous Form Validation & Processor Handlers[cite: 1]
         async function handleFormSubmit(event) {
             event.preventDefault();
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
             const statusBox = document.getElementById('form-status');
             
-            if (!form.checkValidity()) {
+            // Double validation layer to intercept any empty submissions[cite: 1]
+            const nameField = document.getElementById('name').value.trim();
+            const emailField = document.getElementById('email').value.trim();
+            const descField = document.getElementById('description').value.trim();
+
+            if (!nameField || !emailField || !descField || !form.checkValidity()) {
+                statusBox.className = "status-box error";
+                statusBox.innerHTML = "⚠️ Please fill out all required layout parameter fields before transmitting.";
+                statusBox.style.display = "block";
                 form.reportValidity();
                 return;
             }
@@ -853,6 +880,7 @@
                     statusBox.className = "status-box success";
                     statusBox.innerHTML = "🚀 Strategy Brief Transmitted! I will review and follow up within 24 hours.";
                     form.reset();
+                    document.querySelectorAll('select').forEach(sel => sel.setAttribute('data-empty', 'true'));
                 } else {
                     throw new Error();
                 }
