@@ -7,7 +7,6 @@
     
     <link rel="icon" type="image/png" href="Web logo.png">
 
-    <!-- Three.js for Premium Ambient Background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
@@ -222,6 +221,31 @@
             background: #38bdf8;
         }
 
+        /* --- PREMIUM AVAILABILITY BADGE --- */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 1rem;
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #38bdf8;
+        }
+
         /* --- HERO SECTION --- */
         .hero {
             padding: 7rem 0 4rem 0;
@@ -308,7 +332,7 @@
         .badge.student:hover { border-color: var(--student-color); box-shadow: 0 0 20px rgba(244, 114, 182, 0.2); }
         .badge.pak:hover { border-color: var(--pak-color); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
 
-        /* --- INFINITE TICKER MARQUEE (ADDED FROM IMAGE) --- */
+        /* --- INFINITE TICKER MARQUEE --- */
         .ticker-wrap {
             width: 100vw;
             position: relative;
@@ -365,7 +389,6 @@
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* Pause ticker animation when user hovers over it */
         .ticker-wrap:hover .ticker {
             animation-play-state: paused;
         }
@@ -558,7 +581,6 @@
             box-shadow: 0 0 15px rgba(129, 140, 248, 0.25);
         }
 
-        /* Detect text presence or activation to trigger float transformation rules */
         .form-group input:focus ~ label,
         .form-group input:not(:placeholder-shown) ~ label,
         .form-group select:focus ~ label,
@@ -597,7 +619,6 @@
             box-shadow: 0 6px 30px rgba(129, 140, 248, 0.5);
         }
 
-        /* Dynamic Feedback Output Boxes */
         .status-box {
             grid-column: span 2;
             margin-top: 1rem;
@@ -631,19 +652,6 @@
         }
         
         .direct-email:hover { opacity: 1; color: #38bdf8; }
-
-        /* --- TIMELINE ADJUSTMENT FOR THE MARQUEE --- */
-        #process {
-            padding-top: 8.5rem;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 7rem 0 2rem 0;
-            font-size: 0.9rem;
-            opacity: 0.5;
-        }
 
         /* --- STABLE RESPONSIVE LAYOUT BREAKPOINTS --- */
         @media (max-width: 900px) {
@@ -717,18 +725,10 @@
             .ticker-wrap { margin-top: 3.5rem; }
             #process { padding-top: 6rem; }
         }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 2.2rem; }
-            .badge-container { flex-direction: column; }
-            .badge { flex: 1 1 100%; }
-            .btn { width: 100%; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Target mounting node for the WebGL scene background engine -->
     <div id="canvas3d"></div>
 
     <nav>
@@ -752,6 +752,11 @@
     <div class="container">
         
         <header class="hero">
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                Available for Premium Contracts
+            </div>
+            
             <h1>From Concept to High-Fidelity. <br><span>Let's Build Your Next Interface.</span></h1>
             <p>I am Muhammad Motasim, a specialized UI/UX Designer turning complex product frameworks into crystal-clear, stunning user journeys. Based in Pakistan, I combine discipline as a Hafiz e Quran with digital architecture.</p>
             <a href="#start" class="btn">Initiate Project Brief</a>
@@ -779,17 +784,14 @@
                 </div>
             </div>
 
-            <!-- --- INFINITE TICKER MARQUEE BANNERS (ADDED) --- -->
             <div class="ticker-wrap">
                 <div class="ticker">
-                    <!-- Original Group -->
                     <div class="ticker-group">
                         <div class="ticker-item">Figma UI/UX <span class="bolt">&#9889;</span></div>
                         <div class="ticker-item">High-Fidelity Wireframes <span class="bolt">&#9889;</span></div>
                         <div class="ticker-item">Interactive Prototyping <span class="bolt">&#9889;</span></div>
                         <div class="ticker-item">Design System Architecture <span class="bolt">&#9889;</span></div>
                     </div>
-                    <!-- Duplicate Group for Seamless Looping -->
                     <div class="ticker-group" aria-hidden="true">
                         <div class="ticker-item">Figma UI/UX <span class="bolt">&#9889;</span></div>
                         <div class="ticker-item">High-Fidelity Wireframes <span class="bolt">&#9889;</span></div>
@@ -850,7 +852,6 @@
                 <h2>Start Your UI/UX Project</h2>
                 <p>Fill out this preliminary scope parameters form, and I will review your project requirements to respond with a strategic timeline framework within 24 hours.</p>
                 
-                <!-- Production Link Configuration: Swap placeholder text below with actual dashboard tokens -->
                 <form id="designForm" class="project-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" onsubmit="handleFormSubmit(event)">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder=" " required autocomplete="name">
@@ -900,10 +901,8 @@
     </div>
 
     <script>
-        // Set dynamic copyright year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Mobile Navigation Menu Toggles
         const menuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.getElementById('navLinks');
 
@@ -912,7 +911,6 @@
             navLinks.classList.toggle('active');
         }
 
-        // Native Select Attribute Tracking to Support CSS Floating Label Target Selectors
         document.querySelectorAll('select').forEach(sel => {
             if(sel.value !== "") {
                 sel.removeAttribute('data-empty');
@@ -924,14 +922,12 @@
             navLinks.classList.remove('active');
         }
 
-        // Upgraded Native Async Asynchronous Form Validation & Processor Handlers
         async function handleFormSubmit(event) {
             event.preventDefault();
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
             const statusBox = document.getElementById('form-status');
             
-            // Comprehensive runtime interception validation layers
             const nameField = document.getElementById('name').value.trim();
             const emailField = document.getElementById('email').value.trim();
             const descField = document.getElementById('description').value.trim();
@@ -944,12 +940,10 @@
                 return;
             }
 
-            // Lock interface to isolate transmission requests
             submitBtn.disabled = true;
             submitBtn.textContent = "Processing Brief Parameters...";
             statusBox.style.display = "none";
 
-            // Intercept placeholder tokens safely during testing phases
             if (form.getAttribute('action').includes('YOUR_FORMSPREE_ID')) {
                 setTimeout(() => {
                     submitBtn.disabled = false;
@@ -972,7 +966,6 @@
                     statusBox.className = "status-box success";
                     statusBox.innerHTML = "🚀 Strategy Brief Transmitted! I will review and follow up within 24 hours.";
                     form.reset();
-                    // Restore clean floating state defaults to standard dropdown inputs
                     document.querySelectorAll('select').forEach(sel => sel.setAttribute('data-empty', 'true'));
                 } else {
                     throw new Error();
@@ -987,12 +980,10 @@
             }
         }
 
-        // Prevent layout processing jumps during rapid history actions
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
         }
 
-        // Section Intersection Observer Transition Triggers
         const sections = document.querySelectorAll('section');
         const observerOptions = { threshold: 0.1, rootMargin: "-10% 0px -30% 0px" };
         
@@ -1005,10 +996,8 @@
         }, observerOptions);
         sections.forEach(sec => scrollObserver.observe(sec));
         
-        // Instant display safety triggers for top folds
         setTimeout(() => { if(sections[0]) sections[0].classList.add('reveal'); }, 150);
 
-        // Navigation Highlight Tracker
         const navItems = document.querySelectorAll('.nav-links a');
         const navObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1025,15 +1014,11 @@
         }, { threshold: 0.35 });
         sections.forEach(sec => navObserver.observe(sec));
 
-
-        // --- PERFORMANCE-TUNED ATMOSPHERIC PARTICLES BACKGROUND ---
+        // Background Animation
         const container = document.getElementById('canvas3d');
         const scene = new THREE.Scene();
-        
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 50;
-
-        // Capping pixel calculations to 2 to prevent GPU overheat flags on high-density arrays
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: window.devicePixelRatio < 2 });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -1043,49 +1028,26 @@
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         const colors = new Float32Array(particleCount * 3);
-
-        const palette = [
-            new THREE.Color('#38bdf8'), 
-            new THREE.Color('#818cf8'), 
-            new THREE.Color('#c084fc')  
-        ];
+        const palette = [new THREE.Color('#38bdf8'), new THREE.Color('#818cf8'), new THREE.Color('#c084fc')];
 
         for (let i = 0; i < particleCount * 3; i += 3) {
             positions[i] = (Math.random() - 0.5) * 120;     
             positions[i + 1] = (Math.random() - 0.5) * 120; 
             positions[i + 2] = (Math.random() - 0.5) * 80;  
-
             const randomColor = palette[Math.floor(Math.random() * palette.length)];
-            colors[i] = randomColor.r;
-            colors[i + 1] = randomColor.g;
-            colors[i + 2] = randomColor.b;
+            colors[i] = randomColor.r; colors[i + 1] = randomColor.g; colors[i + 2] = randomColor.b;
         }
 
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-        // Programmatic texture mapping script to optimize external requests
         const canvasMat = document.createElement('canvas');
-        canvasMat.width = 16;
-        canvasMat.height = 16;
+        canvasMat.width = 16; canvasMat.height = 16;
         const ctx = canvasMat.getContext('2d');
         const grad = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
-        grad.addColorStop(0, 'rgba(255,255,255,1)');
-        grad.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, 16, 16);
+        grad.addColorStop(0, 'rgba(255,255,255,1)'); grad.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = grad; ctx.fillRect(0, 0, 16, 16);
         const pTexture = new THREE.CanvasTexture(canvasMat);
-
-        const material = new THREE.PointsMaterial({
-            size: 1.0,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.5,
-            map: pTexture,
-            depthWrite: false,
-            blending: THREE.AdditiveBlending
-        });
-
+        const material = new THREE.PointsMaterial({ size: 1.0, vertexColors: true, transparent: true, opacity: 0.5, map: pTexture, depthWrite: false, blending: THREE.AdditiveBlending });
         const starField = new THREE.Points(geometry, material);
         scene.add(starField);
 
@@ -1095,25 +1057,17 @@
             targetY = (e.clientY / window.innerHeight - 0.5) * 14;
         });
 
-        // Dynamic depth reactive velocity tracker
         let scrollSpeedTarget = 0;
-        window.addEventListener('scroll', () => {
-            scrollSpeedTarget = window.scrollY * 0.015;
-        });
+        window.addEventListener('scroll', () => { scrollSpeedTarget = window.scrollY * 0.015; });
 
         const clock = new THREE.Clock();
         function animate() {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
-
-            // Passive spatial rotation calculations
             starField.rotation.y = elapsedTime * 0.012 + (scrollSpeedTarget * 0.005);
             starField.rotation.x = elapsedTime * 0.006;
-
-            // Fluid deceleration tracking
             starField.position.x += (targetX - starField.position.x) * 0.05;
             starField.position.y += (-targetY - starField.position.y) * 0.05;
-
             renderer.render(scene, camera);
         }
         animate();
@@ -1124,24 +1078,18 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Interactive Card Torque Mouse Tilt Setup
         const cards = document.querySelectorAll('.skill-card');
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        
         if (!isTouchDevice && window.matchMedia('(min-width: 901px)').matches) {
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    // Cap spatial calculation limit angles
                     const rotateX = (-y / rect.height) * 15; 
                     const rotateY = (x / rect.width) * 15;
-
                     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
                 });
-
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = `rotateX(0deg) rotateY(0deg) translateY(0)`;
                 });
